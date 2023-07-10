@@ -56,44 +56,49 @@ class Welcome extends CI_Controller {
 		$this->load->view('listdata');
 	}
 
-	public function EditData($id){
-		 $edit = $this->db->where('id', $id)->get('data');
+	public function EditData($id) {
+  $edit = $this->db->where('id', $id)->get('data');
 
-        if ($edit->num_rows() > 0) {
-            $data['key'] = $edit->row();
-            $this->load->view('EditData', $data);
-        } else {
-            echo "No data found";
-        }
-	}
-		public function UpdateData($id){
-			$post = $this->input->post();
-			if($post){
-			$this->form_validation->set_rules('fname','First Name','required');
-			$this->form_validation->set_rules('lname','Last Name', 'required');
-			$this->form_validation->set_rules('email','Email',array('required','valid_email'));
-			$this->form_validation->set_rules('password','Password',array('required','min_length[3]','max_length[6]'));
-			$this->form_validation->set_rules('confirm_password','Confirm Password',array('required','matches[password]'));
+  if ($edit->num_rows() > 0) {
+    $data['key'] = $edit->row();
+    $this->load->view('EditData', $data);
+  } else {
+    echo "No data found";
+  }
+}
 
-				if($this->form_validation->run() == False){
-					$this->load->view('index');
-				}
-				else{
-						$data = array(
-							'fname' => $this->input->post('fname'),
-							'lname' =>$this->input->post('lname'),
-							'email' => $this->input->post('email'),
-							'password' =>$this->input->post('password')
+public function UpdateData($id) {
+  $post = $this->input->post();
 
-						);
-					$this->db->where('id',$id)->update('data',$data);
-					redirect('welcome/listdata');
-				}
-			
-			}
-			else
-				$this->load->view('index');
-		}
+  if ($post) {
+    $this->form_validation->set_rules('fname', 'First Name', 'required');
+    $this->form_validation->set_rules('lname', 'Last Name', 'required');
+    $this->form_validation->set_rules('email', 'Email', array('required', 'valid_email'));
+    $this->form_validation->set_rules('password', 'Password', array('required', 'min_length[3]', 'max_length[6]'));
+    $this->form_validation->set_rules('confirm_password', 'Confirm Password', array('required', 'matches[password]'));
+
+    if ($this->form_validation->run() == false) {
+      $response['success'] = false;
+      $response['message'] = validation_errors();
+    } else {
+      $data = array(
+        'fname' => $this->input->post('fname'),
+        'lname' => $this->input->post('lname'),
+        'email' => $this->input->post('email'),
+        'password' => $this->input->post('password')
+      );
+
+      $this->db->where('id', $id)->update('data', $data);
+
+      $response['success'] = true;
+      $response['message'] = 'Data updated successfully';
+    }
+    
+    echo json_encode($response);
+  } else {
+    $this->load->view('index');
+  }
+}
 
 
 		function DeleteData($id = 0) {
