@@ -24,7 +24,7 @@
         <a class="nav-link" href="<?=site_url('welcome/index')?>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">user</a>
+        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">List</a>
       </li>
     
   </div>

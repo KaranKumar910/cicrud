@@ -22,7 +22,7 @@
         <a class="nav-link" href="<?=site_url('welcome/index')?>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">user</a>
+        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">List</a>
       </li>
     
   </div>
@@ -52,7 +52,7 @@
                       <td>'.$value->email.'</td>
                       
                       <td><a href="'.site_url('Welcome/EditData/'.$value->id).'" class="btn btn-info">Edit</a></td>
-                      <td><a href="'.site_url('Welcome/DeleteData/'.$value->id).'" class="btn btn-danger">Delete</a></td>
+                      <td><a href="'.site_url('Welcome/DeleteData/'.$value->id).'" class="btn btn-danger delete">Delete</a></td>
                     </tr>';
             }
           ?>
@@ -62,24 +62,3 @@
   </div>
 </body>
 </html>
-<script type="text/javascript">
-$(function() {
-$(".delbutton").click(function(){
-var element = $(this);
-var del_id = element.attr("id");
-var info = 'id=' + del_id;
-if(confirm("Are you sure you want to delete this Record?")){
-    $.ajax({
-        type: "GET",
-        url: "deleteCourse.php",
-        data: info,
-        success: function(){   
-    }
-});
-    $(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
-    .animate({ opacity: "hide" }, "slow");
-}
-return false;
-});
-});
-</script>

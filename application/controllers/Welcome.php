@@ -92,6 +92,7 @@ public function UpdateData($id) {
 
       $response['success'] = true;
       $response['message'] = 'Data updated successfully';
+      $response['redirect_url'] = site_url('welcome/listdata');
     }
     
     echo json_encode($response);
@@ -101,13 +102,14 @@ public function UpdateData($id) {
 }
 
 
+
 		function DeleteData($id = 0) {
  
 				  echo '
 				    <script>
 				      	var confirmation = confirm(\'Are you sure you want to delete this record?\');
 				      	if (confirmation === true) {
-				        	window.location.href = \'' . site_url('controller/perform_delete/'.$id) . '\';
+				        	window.location.href = \'' . site_url('welcome/perform_delete/'.$id) . '\';
 				      	} else {
 				        	alert(\'Deletion cancelled\');
 				      	}

@@ -26,7 +26,7 @@
         <a class="nav-link" href="<?=site_url('welcome/index')?>">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">user</a>
+        <a class="nav-link" href="<?=site_url('welcome/listdata')?>">List</a>
       </li>
     
   </div>
@@ -96,7 +96,7 @@ $(document).ready(function() {
       success: function(response) {
         if (response.success === true) {
           alert(response.message);
-          // Perform any additional actions after successful update
+          window.location.href = response.redirect_url; // Redirect to the listdata page
         } else {
           alert(response.message);
         }
@@ -108,4 +108,5 @@ $(document).ready(function() {
   });
 });
 </script>
+
 
